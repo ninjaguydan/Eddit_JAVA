@@ -12,25 +12,26 @@ import java.util.Optional;
 public class AccountController {
 
     AccountService service;
-
     @Autowired
     AccountController(AccountService accountService){
         this.service = accountService;
     }
+
     @PostMapping("/register")
     public void register(@RequestBody UserAuthRequest requestBody){
-        System.out.println("creating new account...");
         service.createUser(requestBody.name, requestBody.username, requestBody.password);
     }
+
     @PostMapping("/login")
     public Boolean login(@RequestBody UserAuthRequest requestBody){
         return service.checkCred(requestBody.username, requestBody.password);
     }
+
     @GetMapping
     public Iterable<Account> users(){
-        System.out.println("get all");
         return service.getUsers();
     }
+
     @GetMapping("/{id}")
     public Optional<Account> user(@PathVariable Long id){
         System.out.println("get " + id);
